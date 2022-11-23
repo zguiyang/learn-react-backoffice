@@ -1,10 +1,14 @@
+import React from 'react';
+
+import { Outlet } from "react-router-dom";
+
 import BasicLayout from './layouts/BasicLayout';
 
-function App() {
+const  App:React.FC = ( ) => {
   return (
-    <div className="app">
+    <div className="app-provider">
       <BasicLayout>
-        <h1>记号记号</h1>
+        <Outlet></Outlet>
       </BasicLayout>
     </div>
   )
