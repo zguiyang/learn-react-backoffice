@@ -1,4 +1,4 @@
-import { createBrowserRouter, redirect } from 'react-router-dom';
+import { createBrowserRouter, Outlet, RouteObject } from 'react-router-dom';
 
 import App from '../App';
 
@@ -12,7 +12,8 @@ import UserListPage from '../pages/user/use-list';
 
 import NovelListPage from '../pages/novel/noval-list';
 
-const router = createBrowserRouter([
+
+export const routeList: RouteObject[] = [
   {
     path: '/',
     element: <App />,
@@ -23,6 +24,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'dashboard',
+        element: <Outlet/>,
         children: [
           {
             path: 'workspace',
@@ -44,5 +46,7 @@ const router = createBrowserRouter([
       }
     ],
   }
-]);
+]
+
+const router = createBrowserRouter(routeList);
 export default router;
