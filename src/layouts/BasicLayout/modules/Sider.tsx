@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 
-import { Layout, Nav }  from '@douyinfe/semi-ui';
+import { Link } from 'react-router-dom';
 
-import { useNavigate } from 'react-router-dom';
+import { Layout, Nav }  from '@douyinfe/semi-ui';
 
 import { IconHistogram, IconHome, IconLive, IconSetting } from '@douyinfe/semi-icons';
 
@@ -10,11 +10,22 @@ const LayoutSider:FC<{}> = ( ) => {
 
   const { Sider } = Layout;
 
-  const navigate = useNavigate ();
-
-  const menuOptionClick = ( { itemKey, isSubNav }: { itemKey: string, isSubNav: boolean, isOpen: boolean } ) => {
-
-    !isSubNav && navigate ( itemKey );
+  const renderSiderMenu = ( { itemElement, isSubNav, props }:any ) => {
+    if ( !isSubNav ) {
+      return (
+        <Link
+          style={{ textDecoration: "none" }}
+          to={props.itemKey}
+        >
+          {itemElement}
+        </Link>
+      );
+    }
+    return (
+      <span>
+         {itemElement}
+      </span>
+    )
   };
 
   return (
@@ -22,6 +33,7 @@ const LayoutSider:FC<{}> = ( ) => {
       <Nav
         defaultSelectedKeys={['/']}
         style={{ maxWidth: 220, height: '100%' }}
+        renderWrapper={renderSiderMenu}
         items={[
           { itemKey: '/', text: '首页', icon: <IconHome size="large" /> },
           { itemKey: '/dashboard', text: 'Dashboard', icon: <IconHistogram size="large" />,
@@ -42,7 +54,6 @@ const LayoutSider:FC<{}> = ( ) => {
         footer={{
           collapseButton: true,
         }}
-        onClick={menuOptionClick}
       />
     </Sider>
   );
